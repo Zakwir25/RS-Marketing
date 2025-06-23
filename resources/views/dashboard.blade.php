@@ -97,7 +97,7 @@
         <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
-                    <h4 class="card-title fw-semibold">Top 10 Requisitioners</h4>
+                    <h4 class="card-title fw-semibold">Top Request</h4>
                     {{-- Leaderboard Filter Dropdown --}}
                     <div class="mb-3">
                         <label for="leaderboardFilter" class="form-label visually-hidden">Leaderboard Timeframe</label>
