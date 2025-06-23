@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap.min.css">
         <style>
+            .table {
+            --bs-table-border-color: #06121e !important;
+        }
+        
             
         </style>
     @endpush
