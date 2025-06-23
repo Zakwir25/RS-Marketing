@@ -187,7 +187,7 @@
                                     </table>
                                 </div>
 
-                                <!-- Footer Section -->
+                                {{-- <!-- Footer Section -->
                                 <div class="row mt-4">
                                     <div class="col-md-6">
                                         <p class="mb-1"><strong>OBJECTIVES:</strong> <span class="blue-text" id="objectives">Meningkatkan efisiensi pengiriman</span></p>
@@ -197,7 +197,7 @@
                                         <p class="mb-1"><strong>REMARKS:</strong> <span class="blue-text" id="remarks">Tidak ada</span></p>
                                         <p><strong>REASON:</strong> <span class="blue-text" id="reason">Penggantian barang yang rusak</span></p>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             <hr>
                             <div class="text-end">
