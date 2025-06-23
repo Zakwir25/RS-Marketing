@@ -78,7 +78,7 @@
                 <div class="invoice-inner-part h-100">
                     <div class="invoiceing-box">
                         <div class="invoice-header d-flex align-items-center border-bottom p-3 no-print">
-                            <h4 class="mb-0"><span id="title-report">Project Name</span></h4>
+                            <h4 class="mb-0"><span id="title-report">Requesition Slip</span></h4>
                             <div class="ms-auto">
                                 <h4 class="invoice-number">#<span id="id-report">---</span></h4>
                             </div>
@@ -187,17 +187,7 @@
                                     </table>
                                 </div>
 
-                                {{-- <!-- Footer Section -->
-                                <div class="row mt-4">
-                                    <div class="col-md-6">
-                                        <p class="mb-1"><strong>OBJECTIVES:</strong> <span class="blue-text" id="objectives">Meningkatkan efisiensi pengiriman</span></p>
-                                        <p class="mb-1"><strong>ESTIMATE POTENTIAL:</strong> <span class="blue-text" id="est_potential">Penghematan biaya pengiriman</span></p>
-                                    </div>
-                                    <div class="col-md-6 text-end">
-                                        <p class="mb-1"><strong>REMARKS:</strong> <span class="blue-text" id="remarks">Tidak ada</span></p>
-                                        <p><strong>REASON:</strong> <span class="blue-text" id="reason">Penggantian barang yang rusak</span></p>
-                                    </div>
-                                </div> --}}
+                                
 
                             <hr>
                             <div class="text-end">
