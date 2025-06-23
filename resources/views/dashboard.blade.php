@@ -65,33 +65,36 @@
         </div>
 
         <div class="col-lg-6 d-flex align-items-stretch">
-            <div class="card w-100">
-                <div class="card-body">
-                    <div class="row align-items-start">
-                        <div class="col-8">
-                            <h4 class="card-title mb-9 fw-semibold">Report Requisitions</h4>
-                            <div class="d-flex align-items-center mb-3">
-                                <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
-                                <div class="d-flex align-items-center">
-                                    <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-arrow-up-left">40%</i>
-                                    </span>
-                                    <p class="text-dark me-1 fs-3 mb-0"></p>
+            <a href="{{ route('rs.report') }}" class="text-decoration-none text-dark w-100"> 
+                <div class="card w-100 hover-shadow">
+                    <div class="card-body">
+                        <div class="row align-items-start">
+                            <div class="col-8">
+                                <h4 class="card-title mb-9 fw-semibold">Report Requisitions</h4>
+                                <div class="d-flex align-items-center mb-3">
+                                    <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-arrow-up-left">40%</i>
+                                        </span>
+                                        <p class="text-dark me-1 fs-3 mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="d-flex justify-content-end">
+                                    <div class="p-2 bg-primary-subtle rounded-2 d-inline-block">
+                                        <img src="{{ asset('assets/images/svgs/icon-master-card-2.svg') }}" alt="modernize-img" class="img-fluid" width="24" height="24">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="d-flex justify-content-end">
-                                <div class="p-2 bg-primary-subtle rounded-2 d-inline-block">
-                                    <img src="{{ asset('assets/images/svgs/icon-master-card-2.svg') }}" alt="modernize-img" class="img-fluid" width="24" height="24">
-                                </div>
-                            </div>
-                        </div>
+                        <div id="monthly-earning"></div>
                     </div>
-                    <div id="monthly-earning"></div>
                 </div>
-            </div>
+            </a>
         </div>
+
 
         {{--- Leaderboard Card ---}}
         <div class="col-lg-4 d-flex align-items-stretch">
