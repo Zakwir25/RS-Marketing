@@ -129,7 +129,6 @@
                                                 <th>QTY ISSUED</th>
                                                 <th><span id="category1">Remarks<br>(Batch Code)</span></th>
                                                 <th><span id="category2">ALASAN PENGGANTIAN</span></th>
-                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -140,7 +139,7 @@
                                                 <td>5</td>
                                                 <td></td>
                                                 <td rowspan="7" class="blue-text">Penggantian<br>Karton Basah</td>
-                                                <td class="blue-text">09 SEP 25 2437 M1</td>
+                                                <td rowspan="7" class="blue-text">Pengiriman lebih efisien</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">145-172</td>
@@ -148,7 +147,6 @@
                                                 <td>15 kg</td>
                                                 <td>20</td>
                                                 <td></td>
-                                                <td class="blue-text">11 SEP 25 2437 M1</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">145-172</td>
@@ -156,7 +154,6 @@
                                                 <td>15 kg</td>
                                                 <td>68</td>
                                                 <td></td>
-                                                <td class="blue-text">16 SEP 25 2438 M1</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">145-172</td>
@@ -164,7 +161,6 @@
                                                 <td>15 kg</td>
                                                 <td>36</td>
                                                 <td></td>
-                                                <td class="blue-text">20 SEP 25 2438 M1</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">145-167</td>
@@ -172,7 +168,6 @@
                                                 <td>15 kg</td>
                                                 <td>10</td>
                                                 <td></td>
-                                                <td class="blue-text">15 SEP 25 2437 M1</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">145-048</td>
@@ -180,7 +175,6 @@
                                                 <td>15 kg</td>
                                                 <td>3</td>
                                                 <td></td>
-                                                <td class="blue-text">18 JUL 25 2429 M1</td>
                                             </tr>
                                             <tr>
                                                 <td class="blue-text">136-024</td>
@@ -188,12 +182,23 @@
                                                 <td>15 kg</td>
                                                 <td>142</td>
                                                 <td></td>
-                                                <td>-</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>    
+
+                                <!-- Footer Section -->
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <p class="mb-1"><strong>OBJECTIVES:</strong> <span class="blue-text" id="objectives">Meningkatkan efisiensi pengiriman</span></p>
+                                        <p class="mb-1"><strong>ESTIMATE POTENTIAL:</strong> <span class="blue-text" id="est_potential">Penghematan biaya pengiriman</span></p>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <p class="mb-1"><strong>REMARKS:</strong> <span class="blue-text" id="remarks">Tidak ada</span></p>
+                                        <p><strong>REASON:</strong> <span class="blue-text" id="reason">Penggantian barang yang rusak</span></p>
+                                    </div>
+                                </div>
+
                             <hr>
                             <div class="text-end">
                                 <a id="print-form" class="btn btn-primary btn-default print-page ms-6"
