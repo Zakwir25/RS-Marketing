@@ -191,8 +191,6 @@
                                     </table>
                                 </div>
 
-                                
-
                             <hr>
                             <div class="text-end">
                                 <a id="print-form" class="btn btn-primary btn-default print-page ms-6"
