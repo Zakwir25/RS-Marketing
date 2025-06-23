@@ -74,9 +74,9 @@
                                 <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
                                 <div class="d-flex align-items-center">
                                     <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-arrow-up-left">40</i>
+                                        <i class="ti ti-arrow-up-left">40%</i>
                                     </span>
-                                    <p class="text-dark me-1 fs-3 mb-0">%</p>
+                                    <p class="text-dark me-1 fs-3 mb-0"></p>
                                 </div>
                             </div>
                         </div>
