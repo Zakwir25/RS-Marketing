@@ -71,12 +71,12 @@
                         <div class="col-8">
                             <h4 class="card-title mb-9 fw-semibold">Report Requisitions</h4>
                             <div class="d-flex align-items-center mb-3">
-                                <h4 class="fw-semibold mb-0 me-8">Monthly Overview</h4>
+                                <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
                                 <div class="d-flex align-items-center">
                                     <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
-                                        <i class="ti ti-arrow-up-left"></i>
+                                        <i class="ti ti-arrow-up-left">40</i>
                                     </span>
-                                    <p class="text-dark me-1 fs-3 mb-0"></p>
+                                    <p class="text-dark me-1 fs-3 mb-0">%</p>
                                 </div>
                             </div>
                         </div>
@@ -329,18 +329,18 @@
                 ];
 
                 const monthlyRequisitioners = [
-                    { name: 'Ellyza Kusuma Wardani', department: 'FinBusiness Controllerance', requisitions: 110 },
-                    { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 105 },
-                    { name: 'Diana Prince', department: 'Marketing', requisitions: 95 },
-                    { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 90 },
-                    { name: 'Nandita Shabrina', department: 'Marketing', requisitions: 82 },
-                    { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 78 },
-                    { name: 'Henry King', department: 'Finance', requisitions: 70 },
-                    { name: 'Ade Rusmana', department: 'IT', requisitions: 68 },
-                    { name: 'Elia Herlina Dwiyanti', department: 'R & D', requisitions: 60 },
-                    { name: 'Ryan Theodorus', department: 'IT', requisitions: 55 },
-                    { name: 'Putri Wulandari', department: 'Sales Admin', requisitions: 50 },
-                    { name: 'Ivy Green', department: 'West Region', requisitions: 45 },
+                    { name: 'Ellyza Kusuma Wardani', department: 'FinBusiness Controllerance', requisitions: 69 },
+                    { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 68 },
+                    { name: 'Diana Prince', department: 'Marketing', requisitions: 65 },
+                    { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 60 },
+                    { name: 'Nandita Shabrina', department: 'Marketing', requisitions: 52 },
+                    { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 48 },
+                    { name: 'Henry King', department: 'Finance', requisitions: 40 },
+                    { name: 'Ade Rusmana', department: 'IT', requisitions: 38 },
+                    { name: 'Elia Herlina Dwiyanti', department: 'R & D', requisitions: 30 },
+                    { name: 'Ryan Theodorus', department: 'IT', requisitions: 25 },
+                    { name: 'Putri Wulandari', department: 'Sales Admin', requisitions: 20 },
+                    { name: 'Ivy Green', department: 'West Region', requisitions: 15 },
                 ];
 
                 function renderLeaderboard(data) {

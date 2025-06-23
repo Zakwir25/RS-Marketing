@@ -9,6 +9,7 @@ class Approvers extends Model
 {
     use HasFactory;
 
+    protected $table = 'rs_approvals';
     protected $guarded = ['id'];
 
     public function section()
@@ -18,7 +19,7 @@ class Approvers extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'approver_nik', 'nik');
+        return $this->belongsTo(User::class, 'initiator_nik', 'nik');
     }
 
     public function rs_masters()
