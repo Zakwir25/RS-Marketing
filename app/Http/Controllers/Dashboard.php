@@ -14,4 +14,51 @@ class Dashboard extends Controller
     {
         return view('dashboard');
     }
+
+
+    public function getChartData(Request $request)
+    {
+        $year = $request->input('year');
+
+        // Inisialisasi array bulan
+        $months = range(1, 12);
+
+        $createdCounts = [];
+        $approvedCounts = [];
+        $rejectedCounts = [];
+
+        foreach ($months as $month) {
+            $created = RSMaster::whereYear('date', $year)
+                ->whereMonth('date', $month)
+                ->count();
+
+            $approved = RSMaster::whereYear('date', $year)
+                ->whereMonth('date', $month)
+                ->where('status', 'approved')
+                ->count();
+
+            $rejected = RSMaster::whereYear('date', $year)
+                ->whereMonth('date', $month)
+                ->where('status', 'rejected')
+                ->count();
+
+            $createdCounts[] = $created;
+            $approvedCounts[] = $approved;
+            $rejectedCounts[] = $rejected;
+        }
+
+        return response()->json([
+            'Created' => $createdCounts,
+            'approved' => $approvedCounts,
+            'rejected' => $rejectedCounts
+        ]);
+    }
+    
+    public function getStandardData()
+    {
+        $standardData = standardData::all();
+        return response()->json($standardData);
+    }
+    
+
 }

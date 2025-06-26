@@ -15,7 +15,6 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\RsApproval;
 use App\Models\Item\Itemdetail;
-
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Log;
 use App\Jobs\SendRsApprovalEmail;

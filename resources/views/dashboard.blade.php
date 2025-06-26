@@ -254,21 +254,34 @@
             // Set current month as selected in the filter
             monthFilter.value = currentMonth;
 
+            // Function to get chart data from the server
+            function getChartData(year, callback) {
+                $.ajax({
+                    url: '/rs/chart-data',
+                    method: 'GET',
+                    data: { year: year },
+                    success: function(response) {
+                        callback(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Failed to fetch chart data:', error);
+                    }
+                });
+            }
+
             // Function to update the Requisition Overview chart
             function updateChart() {
-                const selectedMonth = monthFilter.value;
-                const selectedYear = yearFilter.value;
-                const data = getChartData(parseInt(selectedMonth), parseInt(selectedYear));
+            const selectedMonth = parseInt(monthFilter.value);
+            const selectedYear = parseInt(yearFilter.value);
 
+            getChartData(selectedYear, function(data) {
                 option = {
                     tooltip: {
                         trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
-                        }
+                        axisPointer: { type: 'shadow' }
                     },
                     legend: {
-                        data: ['Created', 'Approved', 'Rejected'], // Added 'Rejected'
+                        data: ['Created', 'Approved', 'Rejected'],
                         show: true,
                         top: 'bottom'
                     },
@@ -280,58 +293,47 @@
                     },
                     xAxis: {
                         type: 'category',
-                        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                     },
-                    yAxis: {
-                        type: 'value'
-                    },
+                    yAxis: { type: 'value' },
                     series: [
                         {
                             name: 'Created',
                             type: 'bar',
                             stack: 'total',
-                            emphasis: {
-                                focus: 'series'
-                            },
+                            emphasis: { focus: 'series' },
                             data: data.Created,
-                            itemStyle: {
-                                color: '#5D87FF' // Primary blue
-                            }
+                            itemStyle: { color: '#5D87FF' }
                         },
                         {
                             name: 'Approved',
                             type: 'bar',
                             stack: 'total',
-                            emphasis: {
-                                focus: 'series'
-                            },
+                            emphasis: { focus: 'series' },
                             data: data.approved,
-                            itemStyle: {
-                                color: '#28a745' // Success green
-                            }
+                            itemStyle: { color: '#28a745' }
                         },
                         {
-                            name: 'Rejected', // New: Rejected series
+                            name: 'Rejected',
                             type: 'bar',
                             stack: 'total',
-                            emphasis: {
-                                focus: 'series'
-                            },
+                            emphasis: { focus: 'series' },
                             data: data.rejected,
-                            itemStyle: {
-                                color: '#dc3545' // Danger red
-                            }
+                            itemStyle: { color: '#dc3545' }
                         }
                     ]
                 };
 
                 myChart.setOption(option);
 
-                // Update the counts above the chart (assuming these are global or easily accessible)
-                document.getElementById('Created-requests-count').innerText = data.Created[parseInt(selectedMonth) - 1]; // Example: show current month's data
-                document.getElementById('approved-requests-count').innerText = data.approved[parseInt(selectedMonth) - 1]; // Example: show current month's data
-                document.getElementById('rejected-requests-count').innerText = data.rejected[parseInt(selectedMonth) - 1]; // Update rejected count
-            }
+                const idx = selectedMonth - 1;
+                document.getElementById('Created-requests-count').innerText = data.Created[idx];
+                document.getElementById('approved-requests-count').innerText = data.approved[idx];
+                document.getElementById('rejected-requests-count').innerText = data.rejected[idx];
+            });
+        }
+
 
             // Add event listeners to filters
             monthFilter.addEventListener('change', updateChart);
