@@ -257,7 +257,7 @@
             // Function to get chart data from the server
             function getChartData(year, callback) {
                 $.ajax({
-                    url: '/rs/chart-data',
+                    url: "{{ route('rs.chart.data') }}", 
                     method: 'GET',
                     data: { year: year },
                     success: function(response) {

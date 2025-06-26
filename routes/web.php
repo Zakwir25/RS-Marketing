@@ -61,7 +61,7 @@ Route::get('/create-symlink', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
-    
+    Route::get('/rs/chart-data', [Dashboard::class, 'getChartData'])->name('rs.chart.data');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -141,6 +141,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/status', [RequistionSlipController::class, 'statusform'])->name('rs.status');
         Route::get('/submit', [RequistionSlipController::class, 'create'])->name('rs.submit');
         Route::post('/store', [RequistionSlipController::class, 'store'])->name('requisition.store');
+        
         
         //Approval Admin
         Route::get('/approval/form/{rs_id}', [ApproversController::class, 'showApprovalForm'])->name('approval.form');
