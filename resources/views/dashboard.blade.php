@@ -52,7 +52,7 @@
                     <div class="d-flex align-items-center">
                         <div class="me-4">
                             <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">Pending</span>
+                            <span class="fs-2">Created</span>
                         </div>
                         <div>
                             <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
@@ -100,7 +100,7 @@
         <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
-                    <h4 class="card-title fw-semibold">Top Request</h4>
+                    <h4 class="card-title fw-semibold">Top Requester</h4>
                     {{-- Leaderboard Filter Dropdown --}}
                     <div class="mb-3">
                         <label for="leaderboardFilter" class="form-label visually-hidden">Leaderboard Timeframe</label>
@@ -119,277 +119,305 @@
             </div>
         </div>
 
-        <div class="col-lg-8 d-flex align-items-stretch">
-            <div class="card w-100">
-                <div class="card-body">
-                    <h4 class="card-title fw-semibold">Requisition Slip Overview</h4>
-                    <p class="card-subtitle mb-2">Monthly Requests</p>
+      <div class="col-lg-8 d-flex align-items-stretch">
+    <div class="card w-100">
+        <div class="card-body">
+            <h4 class="card-title fw-semibold">Requisition Slip Overview</h4>
+            <p class="card-subtitle mb-2">Monthly Requests</p>
 
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        {{-- Left side: Pending & Approved indicators --}}
-                        <div class="d-flex align-items-center">
-                            <a href="#" id="pending-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handlePendingClick()">
-                                <div class="bg-primary-subtle text-primary rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-grid-dots fs-6"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-semibold text-dark fs-4 mb-0" id="pending-requests-count">20</h6> {{-- Example count --}}
-                                    <p class="fs-3 mb-0 fw-normal">Pending</p>
-                                </div>
-                            </a>
-                            <a href="#" id="approved-requests-link" class="d-flex align-items-center text-decoration-none" onclick="handleApprovedClick()">
-                                <div class="bg-success-subtle text-success rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-grid-dots fs-6"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-semibold text-dark fs-4 mb-0" id="approved-requests-count">35</h6> {{-- Example count --}}
-                                    <p class="fs-3 mb-0 fw-normal">Approved</p>
-                                </div>
-                            </a>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                {{-- Left side: Created & Approved indicators --}}
+                <div class="d-flex align-items-center">
+                    <a href="#" id="Created-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleCreatedClick()">
+                        <div class="bg-primary-subtle text-primary rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-grid-dots fs-6"></i>
                         </div>
+                        <div>
+                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="Created-requests-count">20</h6> {{-- Example count --}}
+                            <p class="fs-3 mb-0 fw-normal">Created</p>
+                        </div>
+                    </a>
+                    <a href="#" id="approved-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleApprovedClick()"> {{-- Added me-4 for spacing --}}
+                        <div class="bg-success-subtle text-success rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-check fs-6"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="approved-requests-count">35</h6> {{-- Example count --}}
+                            <p class="fs-3 mb-0 fw-normal">Approved</p>
+                        </div>
+                    </a>
+                    {{-- New: Rejected indicator --}}
+                    <a href="#" id="rejected-requests-link" class="d-flex align-items-center text-decoration-none" onclick="handleRejectedClick()">
+                        <div class="bg-danger-subtle text-danger rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-ban fs-6"></i> {{-- Example icon, you can choose another --}}
+                        </div>
+                        <div>
+                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="rejected-requests-count">10</h6> {{-- Example count --}}
+                            <p class="fs-3 mb-0 fw-normal">Rejected</p>
+                        </div>
+                    </a>
+                </div>
 
-                        {{-- Right side: Month and Year filters --}}
-                        <div class="d-flex">
-                            <div class="me-3">
-                                <label for="monthFilter" class="form-label visually-hidden">Select Month</label>
-                                <select class="form-select form-select-sm w-auto" id="monthFilter"> {{-- Added w-auto --}}
-                                    <option value="01" class="fw-bold">January</option>
-                                    <option value="02" class="fw-bold">February</option>
-                                    <option value="03" class="fw-bold">March</option>
-                                    <option value="04" class="fw-bold">April</option>
-                                    <option value="05" class="fw-bold">May</option>
-                                    <option value="06" class="fw-bold" selected>June</option>
-                                    <option value="07" class="fw-bold">July</option>
-                                    <option value="08" class="fw-bold">August</option>
-                                    <option value="09" class="fw-bold">September</option>
-                                    <option value="10" class="fw-bold">October</option>
-                                    <option value="11" class="fw-bold">November</option>
-                                    <option value="12" class="fw-bold">December</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="yearFilter" class="form-label visually-hidden">Select Year</label>
-                                <select class="form-select form-select-sm w-auto" id="yearFilter"> {{-- Added w-auto --}}
-                                    </select>
-                            </div>
-                        </div>
+                {{-- Right side: Month and Year filters --}}
+                <div class="d-flex">
+                    <div class="me-3">
+                        <label for="monthFilter" class="form-label visually-hidden">Select Month</label>
+                        <select class="form-select form-select-sm w-auto" id="monthFilter">
+                            <option value="01" class="fw-bold">January</option>
+                            <option value="02" class="fw-bold">February</option>
+                            <option value="03" class="fw-bold">March</option>
+                            <option value="04" class="fw-bold">April</option>
+                            <option value="05" class="fw-bold">May</option>
+                            <option value="06" class="fw-bold" selected>June</option>
+                            <option value="07" class="fw-bold">July</option>
+                            <option value="08" class="fw-bold">August</option>
+                            <option value="09" class="fw-bold">September</option>
+                            <option value="10" class="fw-bold">October</option>
+                            <option value="11" class="fw-bold">November</option>
+                            <option value="12" class="fw-bold">December</option>
+                        </select>
                     </div>
-
-                    <div id="requisition-overview-chart" style="width: 100%; height: 300px;"></div>
+                    <div>
+                        <label for="yearFilter" class="form-label visually-hidden">Select Year</label>
+                        <select class="form-select form-select-sm w-auto" id="yearFilter">
+                        </select>
+                    </div>
                 </div>
             </div>
+
+            <div id="requisition-overview-chart" style="width: 100%; height: 300px;"></div>
         </div>
     </div>
+</div>
 
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
 
-        <script>
-            // Handle clicks for Pending
-            function handlePendingClick() {
-                alert('Pending requests clicked!');
-                // You can add logic here to redirect, filter data, etc.
-                // window.location.href = '/requisitions/pending';
+    <script>
+        // Handle clicks for Created
+        function handleCreatedClick() {
+            alert('Created requests clicked!');
+            // You can add logic here to redirect, filter data, etc.
+            // window.location.href = '/requisitions/Created';
+        }
+
+        // Handle clicks for Approved
+        function handleApprovedClick() {
+            alert('Approved requests clicked!');
+            // You can add logic here to redirect, filter data, etc.
+            // window.location.href = '/requisitions/approved';
+        }
+
+        // New: Handle clicks for Rejected
+        function handleRejectedClick() {
+            alert('Rejected requests clicked!');
+            // You can add logic here to redirect, filter data, etc.
+            // window.location.href = '/requisitions/rejected';
+        }
+
+        // ECharts for Requisition Slip Overview
+        document.addEventListener('DOMContentLoaded', function() {
+            var chartDom = document.getElementById('requisition-overview-chart');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            // Function to generate dummy data for the chart based on month and year
+            function getChartData(month, year) {
+                const baseCreated = 100 + (month * 5) + (year - 2025) * 10;
+                const baseApproved = 200 + (month * 10) + (year - 2025) * 15;
+                const baseRejected = 30 + (month * 2) + (year - 2025) * 5; // New: Base for Rejected
+
+                return {
+                    Created: Array.from({length: 12}, (_, i) => Math.floor(baseCreated + Math.random() * 50 - 25)),
+                    approved: Array.from({length: 12}, (_, i) => Math.floor(baseApproved + Math.random() * 70 - 35)),
+                    rejected: Array.from({length: 12}, (_, i) => Math.floor(baseRejected + Math.random() * 20 - 10)) // New: Rejected data
+                };
             }
 
-            // Handle clicks for Approved
-            function handleApprovedClick() {
-                alert('Approved requests clicked!');
-                // You can add logic here to redirect, filter data, etc.
-                // window.location.href = '/requisitions/approved';
+            // Initialize month and year filters for Requisition Overview
+            const monthFilter = document.getElementById('monthFilter');
+            const yearFilter = document.getElementById('yearFilter');
+            const currentYear = new Date().getFullYear();
+            const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
+
+            // Populate year filter
+            for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                if (i === currentYear) {
+                    option.selected = true;
+                }
+                yearFilter.appendChild(option);
             }
 
-            // ECharts for Requisition Slip Overview
-            document.addEventListener('DOMContentLoaded', function() {
-                var chartDom = document.getElementById('requisition-overview-chart');
-                var myChart = echarts.init(chartDom);
-                var option;
+            // Set current month as selected in the filter
+            monthFilter.value = currentMonth;
 
-                // Function to generate dummy data for the chart based on month and year
-                function getChartData(month, year) {
-                    const basePending = 100 + (month * 5) + (year - 2025) * 10;
-                    const baseApproved = 200 + (month * 10) + (year - 2025) * 15;
+            // Function to update the Requisition Overview chart
+            function updateChart() {
+                const selectedMonth = monthFilter.value;
+                const selectedYear = yearFilter.value;
+                const data = getChartData(parseInt(selectedMonth), parseInt(selectedYear));
 
-                    return {
-                        pending: Array.from({length: 12}, (_, i) => Math.floor(basePending + Math.random() * 50 - 25)),
-                        approved: Array.from({length: 12}, (_, i) => Math.floor(baseApproved + Math.random() * 70 - 35))
-                    };
-                }
-
-                // Initialize month and year filters for Requisition Overview
-                const monthFilter = document.getElementById('monthFilter');
-                const yearFilter = document.getElementById('yearFilter');
-                const currentYear = new Date().getFullYear();
-                const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
-
-                // Populate year filter
-                for (let i = currentYear - 5; i <= currentYear + 5; i++) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.textContent = i;
-                    if (i === currentYear) {
-                        option.selected = true;
-                    }
-                    yearFilter.appendChild(option);
-                }
-
-                // Set current month as selected in the filter
-                monthFilter.value = currentMonth;
-
-
-                // Function to update the Requisition Overview chart
-                function updateChart() {
-                    const selectedMonth = monthFilter.value;
-                    const selectedYear = yearFilter.value;
-                    const data = getChartData(parseInt(selectedMonth), parseInt(selectedYear));
-
-                    option = {
-                        tooltip: {
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'shadow'
-                            }
-                        },
-                        legend: {
-                            data: ['Pending', 'Approved'],
-                            show: true,
-                            top: 'bottom'
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '10%',
-                            containLabel: true
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [
-                            {
-                                name: 'Pending',
-                                type: 'bar',
-                                stack: 'total',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: data.pending,
-                                itemStyle: {
-                                    color: '#5D87FF'
-                                }
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ['Created', 'Approved', 'Rejected'], // Added 'Rejected'
+                        show: true,
+                        top: 'bottom'
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '10%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: 'Created',
+                            type: 'bar',
+                            stack: 'total',
+                            emphasis: {
+                                focus: 'series'
                             },
-                            {
-                                name: 'Approved',
-                                type: 'bar',
-                                stack: 'total',
-                                emphasis: {
-                                    focus: 'series'
-                                },
-                                data: data.approved,
-                                itemStyle: {
-                                    color: '#28a745'
-                                }
+                            data: data.Created,
+                            itemStyle: {
+                                color: '#5D87FF' // Primary blue
                             }
-                        ]
-                    };
+                        },
+                        {
+                            name: 'Approved',
+                            type: 'bar',
+                            stack: 'total',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: data.approved,
+                            itemStyle: {
+                                color: '#28a745' // Success green
+                            }
+                        },
+                        {
+                            name: 'Rejected', // New: Rejected series
+                            type: 'bar',
+                            stack: 'total',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: data.rejected,
+                            itemStyle: {
+                                color: '#dc3545' // Danger red
+                            }
+                        }
+                    ]
+                };
 
-                    myChart.setOption(option);
-                }
+                myChart.setOption(option);
 
-                // Add event listeners to filters
-                monthFilter.addEventListener('change', updateChart);
-                yearFilter.addEventListener('change', updateChart);
+                // Update the counts above the chart (assuming these are global or easily accessible)
+                document.getElementById('Created-requests-count').innerText = data.Created[parseInt(selectedMonth) - 1]; // Example: show current month's data
+                document.getElementById('approved-requests-count').innerText = data.approved[parseInt(selectedMonth) - 1]; // Example: show current month's data
+                document.getElementById('rejected-requests-count').innerText = data.rejected[parseInt(selectedMonth) - 1]; // Update rejected count
+            }
 
-                // Initial chart render
-                updateChart();
+            // Add event listeners to filters
+            monthFilter.addEventListener('change', updateChart);
+            yearFilter.addEventListener('change', updateChart);
 
-                // Optional: Resize chart with window
-                window.addEventListener('resize', function () {
-                    myChart.resize();
-                });
+            // Initial chart render
+            updateChart();
 
-                // --- Leaderboard Logic ---
-                const leaderboardList = document.getElementById('leaderboard-list');
-                const leaderboardFilter = document.getElementById('leaderboardFilter');
-
-                // Dummy data for leaderboard (replace with real data from backend)
-                const weeklyRequisitioners = [
-                    { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 25 },
-                    { name: 'Priyadi Setiawan', department: 'Marsho', requisitions: 22 },
-                    { name: 'Kelfin Alamanda', department: 'Marketing', requisitions: 20 },
-                    { name: 'Diana Prince', department: 'Marketing', requisitions: 18 },
-                    { name: 'Suparman', department: 'Marsho', requisitions: 15 },
-                    { name: 'Nahason Haria', department: 'RTM', requisitions: 14 },
-                    { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 13 },
-                    { name: 'Nyimas Mariam', department: 'Finance', requisitions: 11 },
-                    { name: 'Ivy Green', department: 'West Region', requisitions: 10 },
-                    { name: 'Ade Rusmana', department: 'IT', requisitions: 9 },
-                    { name: 'Andhika Suhendar', department: 'IT', requisitions: 8 },
-                    { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 7 },
-                ];
-
-                const monthlyRequisitioners = [
-                    { name: 'Ellyza Kusuma Wardani', department: 'FinBusiness Controllerance', requisitions: 69 },
-                    { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 68 },
-                    { name: 'Diana Prince', department: 'Marketing', requisitions: 65 },
-                    { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 60 },
-                    { name: 'Nandita Shabrina', department: 'Marketing', requisitions: 52 },
-                    { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 48 },
-                    { name: 'Henry King', department: 'Finance', requisitions: 40 },
-                    { name: 'Ade Rusmana', department: 'IT', requisitions: 38 },
-                    { name: 'Elia Herlina Dwiyanti', department: 'R & D', requisitions: 30 },
-                    { name: 'Ryan Theodorus', department: 'IT', requisitions: 25 },
-                    { name: 'Putri Wulandari', department: 'Sales Admin', requisitions: 20 },
-                    { name: 'Ivy Green', department: 'West Region', requisitions: 15 },
-                ];
-
-                function renderLeaderboard(data) {
-                    leaderboardList.innerHTML = ''; // Clear previous entries
-
-                    // Sort by requisitions in descending order
-                    data.sort((a, b) => b.requisitions - a.requisitions);
-
-                    // Display up to top 10
-                    for (let i = 0; i < Math.min(10, data.length); i++) {
-                        const person = data[i];
-                        const listItem = document.createElement('div');
-                        listItem.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3');
-
-                        listItem.innerHTML = `
-                            <div class="d-flex align-items-center">
-                                <div class="p-2 bg-light rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
-                                    <span class="fw-bold">${i + 1}</span>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0 fs-4 fw-semibold">${person.name}</h6>
-                                    <p class="fs-2 text-muted mb-0">${person.department}</p>
-                                </div>
-                            </div>
-                            <div class="badge bg-primary-subtle text-primary">
-                                <p class="fs-3 fw-semibold mb-0">${person.requisitions}</p>
-                            </div>
-                        `;
-                        leaderboardList.appendChild(listItem);
-                    }
-                }
-
-                // Event listener for the leaderboard filter dropdown
-                leaderboardFilter.addEventListener('change', () => {
-                    const selectedFilter = leaderboardFilter.value;
-                    if (selectedFilter === 'weekly') {
-                        renderLeaderboard(weeklyRequisitioners);
-                    } else if (selectedFilter === 'monthly') {
-                        renderLeaderboard(monthlyRequisitioners);
-                    }
-                });
-
-                // Initial render of the leaderboard (defaults to Weekly)
-                renderLeaderboard(weeklyRequisitioners);
+            // Optional: Resize chart with window
+            window.addEventListener('resize', function () {
+                myChart.resize();
             });
-        </script>
-    @endpush
+
+            // --- Leaderboard Logic (Unchanged from your original code) ---
+            const leaderboardList = document.getElementById('leaderboard-list');
+            const leaderboardFilter = document.getElementById('leaderboardFilter');
+
+            const weeklyRequisitioners = [
+                { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 25 },
+                { name: 'Priyadi Setiawan', department: 'Marsho', requisitions: 22 },
+                { name: 'Kelfin Alamanda', department: 'Marketing', requisitions: 20 },
+                { name: 'Diana Prince', department: 'Marketing', requisitions: 18 },
+                { name: 'Suparman', department: 'Marsho', requisitions: 15 },
+                { name: 'Nahason Haria', department: 'RTM', requisitions: 14 },
+                { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 13 },
+                { name: 'Nyimas Mariam', department: 'Finance', requisitions: 11 },
+                { name: 'Ivy Green', department: 'West Region', requisitions: 10 },
+                { name: 'Ade Rusmana', department: 'IT', requisitions: 9 },
+                { name: 'Andhika Suhendar', department: 'IT', requisitions: 8 },
+                { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 7 },
+            ];
+
+            const monthlyRequisitioners = [
+                { name: 'Ellyza Kusuma Wardani', department: 'FinBusiness Controllerance', requisitions: 69 },
+                { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 68 },
+                { name: 'Diana Prince', department: 'Marketing', requisitions: 65 },
+                { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 60 },
+                { name: 'Nandita Shabrina', department: 'Marketing', requisitions: 52 },
+                { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 48 },
+                { name: 'Henry King', department: 'Finance', requisitions: 40 },
+                { name: 'Ade Rusmana', department: 'IT', requisitions: 38 },
+                { name: 'Elia Herlina Dwiyanti', department: 'R & D', requisitions: 30 },
+                { name: 'Ryan Theodorus', department: 'IT', requisitions: 25 },
+                { name: 'Putri Wulandari', department: 'Sales Admin', requisitions: 20 },
+                { name: 'Ivy Green', department: 'West Region', requisitions: 15 },
+            ];
+
+            function renderLeaderboard(data) {
+                leaderboardList.innerHTML = ''; // Clear previous entries
+                data.sort((a, b) => b.requisitions - a.requisitions);
+
+                for (let i = 0; i < Math.min(10, data.length); i++) {
+                    const person = data[i];
+                    const listItem = document.createElement('div');
+                    listItem.classList.add('d-flex', 'align-items-center', 'justify-content-between', 'mb-3');
+
+                    listItem.innerHTML = `
+                        <div class="d-flex align-items-center">
+                            <div class="p-2 bg-light rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                <span class="fw-bold">${i + 1}</span>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fs-4 fw-semibold">${person.name}</h6>
+                                <p class="fs-2 text-muted mb-0">${person.department}</p>
+                            </div>
+                        </div>
+                        <div class="badge bg-primary-subtle text-primary">
+                            <p class="fs-3 fw-semibold mb-0">${person.requisitions}</p>
+                        </div>
+                    `;
+                    leaderboardList.appendChild(listItem);
+                }
+            }
+
+            leaderboardFilter.addEventListener('change', () => {
+                const selectedFilter = leaderboardFilter.value;
+                if (selectedFilter === 'weekly') {
+                    renderLeaderboard(weeklyRequisitioners);
+                } else if (selectedFilter === 'monthly') {
+                    renderLeaderboard(monthlyRequisitioners);
+                }
+            });
+
+            renderLeaderboard(weeklyRequisitioners);
+        });
+    </script>
+@endpush
 
 </x-app-layout>

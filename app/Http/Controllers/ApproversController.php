@@ -15,7 +15,7 @@ class ApproversController extends Controller
 
     public function getApprovalList()
     {
-        $rsList = Approvers::where('status', 'pending')->get();
+        $rsList = Approvers::where('status')->get();
         return response()->json($rsList);
     }
 
