@@ -17,7 +17,6 @@ class Dashboard extends Controller
         return view('dashboard');
     }
 
-
     public function getChartData(Request $request)
     {
         $year = $request->input('year');
