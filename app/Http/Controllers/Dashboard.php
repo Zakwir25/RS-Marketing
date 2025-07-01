@@ -83,7 +83,10 @@ class Dashboard extends Controller
             ]);
           // Filter bulanan (ambil hanya data bulain ini dalam tahun ini)  
         } elseif ($filter === 'monthly') {
-            $query->whereMonth('created_at', now()->month);
+            $query->whereBetween('created_at', [
+                Carbon::now()->startOfMonth(),
+                Carbon::now()->endOfMonth()
+            ]);
         }
 
         
