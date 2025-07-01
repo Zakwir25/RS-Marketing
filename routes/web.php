@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
     Route::get('/rs/chart-data', [Dashboard::class, 'getChartData'])->name('rs.chart.data');
     Route::get('/leaderboard/filter', [Dashboard::class, 'filter']);
+    Route::get('/overview', [Dashboard::class, 'RsOverview'])->name('rs.overview');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -10,33 +10,40 @@
     <div class="row">
         <div class="col-12 d-flex align-items-stretch mb-4">
             <div class="card w-100 bg-primary-subtle overflow-hidden shadow-none">
-                <div class="card-body position-relative">
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="rounded-circle overflow-hidden me-6">
-                                    @if (Auth::user()->avatar)
-                                        <img src="{{ asset('storage/uploads/user_avatars/' . Auth::user()->avatar) }}" alt="modernize-img" width="40" height="40">
-                                    @else
-                                        <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="modernize-img" width="40" height="40">
-                                    @endif
+                    <div class="card-body position-relative">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="d-flex align-items-center mb-7">
+                                    <div class="rounded-circle overflow-hidden me-6">
+                                        @if (Auth::user()->avatar)
+                                            <img src="{{ asset('storage/uploads/user_avatars/' . Auth::user()->avatar) }}" alt="modernize-img" width="40" height="40">
+                                        @else
+                                            <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="modernize-img" width="40" height="40">
+                                        @endif
+                                    </div>
+                                    <h5 class="fw-semibold mb-0 fs-5">Welcome, {{ Auth::user()->name }}!</h5>
                                 </div>
-                                <h5 class="fw-semibold mb-0 fs-5">Welcome, {{ Auth::user()->name }}!</h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="border-end pe-4 border-muted border-opacity-10">
+                                        <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                            <span id="todayRequests">0</span>
+                                            <i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                        </h3>
+                                        <p class="mb-0 text-dark">Today's Requisition Slip</p>
+                                    </div>
+                                    <div class="ps-4">
+                                        <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                            <span id="totalRequests">0</span>
+                                            <i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                        </h3>
+                                        <p class="mb-0 text-dark">Total Requisition Slip</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">5<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Today's Requisition Slip</p>
+                            <div class="col-sm-5">
+                                <div class="welcome-bg-img mb-n7 text-end">
+                                    <img src="{{ asset('assets/images/backgrounds/welcome-bg.svg') }}" alt="modernize-img" class="img-fluid">
                                 </div>
-                                <div class="ps-4">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">40<i class="ti ti-arrow-up-right fs-5 lh-base text-success"></i></h3>
-                                    <p class="mb-0 text-dark">Total Requisition Slip</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="welcome-bg-img mb-n7 text-end">
-                                <img src="{{ asset('assets/images/backgrounds/welcome-bg.svg') }}" alt="modernize-img" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -44,59 +51,64 @@
             </div>
         </div>
 
-        <div class="col-lg-6 d-flex align-items-stretch">
-            <div class="card w-100">
+        <div class="row">
+    {{-- Requisition Slip Updates (sebelah kiri) --}}
+    <div class="col-lg-6 d-flex align-items-stretch">
+        <div class="card w-100">
+            <div class="card-body">
+                <h4 class="card-title fw-semibold">Requisition Slip Updates</h4>
+                <p class="card-subtitle mb-4">Overview of Requests</p>
+                <div class="d-flex align-items-center">
+                    <div class="me-4">
+                        <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
+                        <span class="fs-2">Created</span>
+                    </div>
+                    <div>
+                        <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
+                        <span class="fs-2">Approved</span>
+                    </div>
+                </div>
+                <div id="revenue-chart" class="revenue-chart mx-n3"></div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Report Requisitions (sebelah kanan) --}}
+    <div class="col-lg-6 d-flex align-items-stretch">
+        <a href="{{ route('rs.report') }}" class="text-decoration-none text-dark w-100"> 
+            <div class="card w-100 hover-shadow">
                 <div class="card-body">
-                    <h4 class="card-title fw-semibold">Requisition Slip Updates</h4>
-                    <p class="card-subtitle mb-4">Overview of Requests</p>
-                    <div class="d-flex align-items-center">
-                        <div class="me-4">
-                            <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">Created</span>
+                    <div class="row align-items-start">
+                        <div class="col-8">
+                            <h4 class="card-title mb-9 fw-semibold">Report Requisitions</h4>
+                            <div class="d-flex align-items-center mb-3">
+                                <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-arrow-up-left">40%</i>
+                                    </span>
+                                    <p class="text-dark me-1 fs-3 mb-0"></p>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
-                            <span class="fs-2">Approved</span>
+                        <div class="col-4">
+                            <div class="d-flex justify-content-end">
+                                <div class="p-2 bg-primary-subtle rounded-2 d-inline-block">
+                                    <img src="{{ asset('assets/images/svgs/icon-master-card-2.svg') }}" alt="modernize-img" class="img-fluid" width="24" height="24">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div id="revenue-chart" class="revenue-chart mx-n3"></div>
+                    <div id="monthly-earning"></div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-lg-6 d-flex align-items-stretch">
-            <a href="{{ route('rs.report') }}" class="text-decoration-none text-dark w-100"> 
-                <div class="card w-100 hover-shadow">
-                    <div class="card-body">
-                        <div class="row align-items-start">
-                            <div class="col-8">
-                                <h4 class="card-title mb-9 fw-semibold">Report Requisitions</h4>
-                                <div class="d-flex align-items-center mb-3">
-                                    <h4 class="fw-semibold mb-0 me-8">Monthly RS Overview</h4>
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2 rounded-circle bg-success-subtle text-success round-20 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-arrow-up-left">40%</i>
-                                        </span>
-                                        <p class="text-dark me-1 fs-3 mb-0"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="d-flex justify-content-end">
-                                    <div class="p-2 bg-primary-subtle rounded-2 d-inline-block">
-                                        <img src="{{ asset('assets/images/svgs/icon-master-card-2.svg') }}" alt="modernize-img" class="img-fluid" width="24" height="24">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="monthly-earning"></div>
-                    </div>
-                </div>
-            </a>
-        </div>
+        </a>
+    </div>
+</div>
 
 
-        {{-- --- Leaderboard Card --- --}}
+{{-- --- Leaderboard Card (kiri) --- --}}
+       <div class="row">
         <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
@@ -126,76 +138,64 @@
             </div>
         </div>
 
-        {{-- --- Requisition Slip Overview Card --- --}}
+            {{-- --- Requisition Slip Overview Card (kanan) --- --}}
+            <div class="col-lg-8 d-flex align-items-stretch">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <h4 class="card-title fw-semibold">Requisition Slip Overview</h4>
+                        <p class="card-subtitle mb-2">Monthly Requests</p>
 
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center">
+                                <a href="#" id="Created-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleCreatedClick()">
+                                    <div class="bg-primary-subtle text-primary rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-grid-dots fs-6"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark fs-4 mb-0" id="Created-requests-count">20</h6>
+                                        <p class="fs-3 mb-0 fw-normal">Created</p>
+                                    </div>
+                                </a>
+                                <a href="#" id="approved-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleApprovedClick()">
+                                    <div class="bg-success-subtle text-success rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-check fs-6"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark fs-4 mb-0" id="approved-requests-count">35</h6>
+                                        <p class="fs-3 mb-0 fw-normal">Approved</p>
+                                    </div>
+                                </a>
+                                <a href="#" id="rejected-requests-link" class="d-flex align-items-center text-decoration-none" onclick="handleRejectedClick()">
+                                    <div class="bg-danger-subtle text-danger rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-ban fs-6"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold text-dark fs-4 mb-0" id="rejected-requests-count">10</h6>
+                                        <p class="fs-3 mb-0 fw-normal">Rejected</p>
+                                    </div>
+                                </a>
+                            </div>
 
-      <div class="col-lg-8 d-flex align-items-stretch">
-    <div class="card w-100">
-        <div class="card-body">
-            <h4 class="card-title fw-semibold">Requisition Slip Overview</h4>
-            <p class="card-subtitle mb-2">Monthly Requests</p>
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <label for="monthFilter" class="form-label visually-hidden">Select Month</label>
+                                    <select class="form-select form-select-sm w-auto" id="monthFilter">
+                                        {{-- Month options --}}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="yearFilter" class="form-label visually-hidden">Select Year</label>
+                                    <select class="form-select form-select-sm w-auto" id="yearFilter">
+                                        {{-- Year options --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                {{-- Left side: Created & Approved indicators --}}
-                <div class="d-flex align-items-center">
-                    <a href="#" id="Created-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleCreatedClick()">
-                        <div class="bg-primary-subtle text-primary rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-grid-dots fs-6"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="Created-requests-count">20</h6> {{-- Example count --}}
-                            <p class="fs-3 mb-0 fw-normal">Created</p>
-                        </div>
-                    </a>
-                    <a href="#" id="approved-requests-link" class="d-flex align-items-center text-decoration-none me-4" onclick="handleApprovedClick()"> {{-- Added me-4 for spacing --}}
-                        <div class="bg-success-subtle text-success rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-check fs-6"></i>
-                        </div>
-                        <div>
-                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="approved-requests-count">35</h6> {{-- Example count --}}
-                            <p class="fs-3 mb-0 fw-normal">Approved</p>
-                        </div>
-                    </a>
-                    {{-- New: Rejected indicator --}}
-                    <a href="#" id="rejected-requests-link" class="d-flex align-items-center text-decoration-none" onclick="handleRejectedClick()">
-                        <div class="bg-danger-subtle text-danger rounded-2 me-2 p-2 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-ban fs-6"></i> {{-- Example icon, you can choose another --}}
-                        </div>
-                        <div>
-                            <h6 class="fw-semibold text-dark fs-4 mb-0" id="rejected-requests-count">10</h6> {{-- Example count --}}
-                            <p class="fs-3 mb-0 fw-normal">Rejected</p>
-                        </div>
-                    </a>
-                </div>
-
-                {{-- Right side: Month and Year filters --}}
-                <div class="d-flex">
-                    <div class="me-3">
-                        <label for="monthFilter" class="form-label visually-hidden">Select Month</label>
-                        <select class="form-select form-select-sm w-auto" id="monthFilter">
-                            <option value="01" class="fw-bold">January</option>
-                            <option value="02" class="fw-bold">February</option>
-                            <option value="03" class="fw-bold">March</option>
-                            <option value="04" class="fw-bold">April</option>
-                            <option value="05" class="fw-bold">May</option>
-                            <option value="06" class="fw-bold" >June</option>
-                            <option value="07" class="fw-bold">July</option>
-                            <option value="08" class="fw-bold">August</option>
-                            <option value="09" class="fw-bold">September</option>
-                            <option value="10" class="fw-bold">October</option>
-                            <option value="11" class="fw-bold">November</option>
-                            <option value="12" class="fw-bold">December</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="yearFilter" class="form-label visually-hidden">Select Year</label>
-                        <select class="form-select form-select-sm w-auto" id="yearFilter">
-                        </select>
+                        <div id="requisition-overview-chart" style="width: 100%; height: 300px;"></div>
                     </div>
                 </div>
             </div>
-
-            <div id="requisition-overview-chart" style="width: 100%; height: 300px;"></div>
         </div>
     </div>
 </div>
@@ -357,6 +357,17 @@
                 myChart.resize();
             });
 
+            document.addEventListener('DOMContentLoaded', function () {
+                fetch('/overview') // ganti ini dengan route API kamu jika berbeda
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('todayRequests').textContent = data.todayRequests;
+                        document.getElementById('totalRequests').textContent = data.totalRequests;
+                    })
+                    .catch(error => {
+                        console.error('Failed to load requisition overview:', error);
+                    });
+            });
             // --- Leaderboard Logic (Unchanged from your original code) ---
             const leaderboardList = document.getElementById('leaderboard-list');
             const leaderboardFilter = document.getElementById('leaderboardFilter');

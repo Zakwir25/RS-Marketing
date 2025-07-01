@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea\standardData;
+use Illuminate\Support\Facades\Auth;
 use App\Models\RS\RSMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -94,5 +95,15 @@ class Dashboard extends Controller
         return response()->json($data);
     }
     
+    public function RsOverview()
+    {
+        $todayRequests = RSMaster::whereDate('created_at', Carbon::today())->count();
+        $totalRequests = RSMaster::whereDate('created_at', $today)->count();
 
+        return response ()->json([
+            'todayRequests' => $todayRequests,
+            'totalRequests' => $totalRequests
+        ]);
+
+    }
 }
