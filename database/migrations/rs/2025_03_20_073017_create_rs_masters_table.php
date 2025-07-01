@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rs_masters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();;
+            $table->foreignId('user_id')->constrained('users');
             $table->string('rs_no', 255);
             $table->foreignId('revision_id')->constrained('revisions')->cascadeOnDelete();;
             $table->date('date');

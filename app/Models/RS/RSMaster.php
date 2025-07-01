@@ -34,4 +34,14 @@ class RSMaster extends Model
     {
         return $this->belongsTo(User::class, 'initiator_nik', 'nik');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    
+    public function department()
+    {
+        return $this->belongsTo(User::class, 'department_id', 'id');
+    }
 }

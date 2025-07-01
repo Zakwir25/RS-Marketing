@@ -96,28 +96,38 @@
         </div>
 
 
-        {{--- Leaderboard Card ---}}
+        {{-- --- Leaderboard Card --- --}}
         <div class="col-lg-4 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
                     <h4 class="card-title fw-semibold">Top Requester</h4>
-                    {{-- Leaderboard Filter Dropdown --}}
-                    <div class="mb-3">
-                        <label for="leaderboardFilter" class="form-label visually-hidden">Leaderboard Timeframe</label>
+
+                    {{-- Filters --}}
+                    <div class="d-flex gap-2 flex-wrap align-items-center mb-3">
                         <select class="form-select form-select-sm w-auto" id="leaderboardFilter">
-                            <option value="weekly" class="fw-bold" selected>Weekly</option>
-                            <option value="monthly" class="fw-bold">Monthly</option>
+                            <option value="weekly" selected>Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+
+                        <select class="form-select form-select-sm w-auto" id="leaderboardYear">
+                            @for ($y = date('Y'); $y >= 2024; $y--)
+                                <option value="{{ $y }}" {{ $y == date('Y') ? 'selected' : '' }}>{{ $y }}</option>
+                            @endfor
                         </select>
                     </div>
 
+                    {{-- Leaderboard Content --}}
                     <div class="position-relative" style="max-height: 400px; overflow-y: auto;">
-                        <div id="leaderboard-list">
-                            {{-- Leaderboard items will be inserted here by JavaScript --}}
+                        <div id="leaderboard-list" class="vstack gap-2">
+                            <div class="text-muted text-center py-3">Loading...</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        {{-- --- Requisition Slip Overview Card --- --}}
+
 
       <div class="col-lg-8 d-flex align-items-stretch">
     <div class="card w-100">
@@ -168,7 +178,7 @@
                             <option value="03" class="fw-bold">March</option>
                             <option value="04" class="fw-bold">April</option>
                             <option value="05" class="fw-bold">May</option>
-                            <option value="06" class="fw-bold" selected>June</option>
+                            <option value="06" class="fw-bold" >June</option>
                             <option value="07" class="fw-bold">July</option>
                             <option value="08" class="fw-bold">August</option>
                             <option value="09" class="fw-bold">September</option>
@@ -350,36 +360,27 @@
             // --- Leaderboard Logic (Unchanged from your original code) ---
             const leaderboardList = document.getElementById('leaderboard-list');
             const leaderboardFilter = document.getElementById('leaderboardFilter');
+            const yearSelect = document.getElementById('leaderboardYear');  // Tambahkan select tahun di HTML
 
-            const weeklyRequisitioners = [
-                { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 25 },
-                { name: 'Priyadi Setiawan', department: 'Marsho', requisitions: 22 },
-                { name: 'Kelfin Alamanda', department: 'Marketing', requisitions: 20 },
-                { name: 'Diana Prince', department: 'Marketing', requisitions: 18 },
-                { name: 'Suparman', department: 'Marsho', requisitions: 15 },
-                { name: 'Nahason Haria', department: 'RTM', requisitions: 14 },
-                { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 13 },
-                { name: 'Nyimas Mariam', department: 'Finance', requisitions: 11 },
-                { name: 'Ivy Green', department: 'West Region', requisitions: 10 },
-                { name: 'Ade Rusmana', department: 'IT', requisitions: 9 },
-                { name: 'Andhika Suhendar', department: 'IT', requisitions: 8 },
-                { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 7 },
-            ];
+            function fetchLeaderboardData() {
+                const selectedFilter = leaderboardFilter.value;
+                const selectedYear = yearSelect.value;
+                
 
-            const monthlyRequisitioners = [
-                { name: 'Ellyza Kusuma Wardani', department: 'FinBusiness Controllerance', requisitions: 69 },
-                { name: 'Dinah Dzakiyyah Rasikhah', department: 'Marketing', requisitions: 68 },
-                { name: 'Diana Prince', department: 'Marketing', requisitions: 65 },
-                { name: 'Zafira Husna Salsabila', department: 'Marketing', requisitions: 60 },
-                { name: 'Nandita Shabrina', department: 'Marketing', requisitions: 52 },
-                { name: 'Ayu Untari Putri', department: 'Sales Admin', requisitions: 48 },
-                { name: 'Henry King', department: 'Finance', requisitions: 40 },
-                { name: 'Ade Rusmana', department: 'IT', requisitions: 38 },
-                { name: 'Elia Herlina Dwiyanti', department: 'R & D', requisitions: 30 },
-                { name: 'Ryan Theodorus', department: 'IT', requisitions: 25 },
-                { name: 'Putri Wulandari', department: 'Sales Admin', requisitions: 20 },
-                { name: 'Ivy Green', department: 'West Region', requisitions: 15 },
-            ];
+                fetch(`/leaderboard/filter?year=${selectedYear}&filter=${selectedFilter}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        renderLeaderboard(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching leaderboard data:', error);
+                    });
+            }
 
             function renderLeaderboard(data) {
                 leaderboardList.innerHTML = ''; // Clear previous entries
@@ -408,16 +409,13 @@
                 }
             }
 
-            leaderboardFilter.addEventListener('change', () => {
-                const selectedFilter = leaderboardFilter.value;
-                if (selectedFilter === 'weekly') {
-                    renderLeaderboard(weeklyRequisitioners);
-                } else if (selectedFilter === 'monthly') {
-                    renderLeaderboard(monthlyRequisitioners);
-                }
-            });
+            // Event listeners for all filters
+            leaderboardFilter.addEventListener('change', fetchLeaderboardData);
+            yearSelect.addEventListener('change', fetchLeaderboardData);
+            
 
-            renderLeaderboard(weeklyRequisitioners);
+            // Initial render
+            fetchLeaderboardData();
         });
     </script>
 @endpush

@@ -61,6 +61,36 @@ class Dashboard extends Controller
         $standardData = standardData::all();
         return response()->json($standardData);
     }
+
+     public function filter(Request $request)
+    {
+        $year = $request->input('year');
+        $filter = $request->input('filter'); // 'weekly' atau 'monthly'
+        
+        if (!$year || !$filter) {
+            return response()->json(['error' => 'Missing parameters'], 400);
+        }
+
+        // Ambil data dari tabel user
+        $query = RSMaster::with('user', 'department')
+            ->whereYear('created_at', $year);
+
+        // Filter mingguan (ambil hanya data minggu ini dalam bulan yang sama)
+        if($filter === 'weekly') {
+            $query->whereBetween('created_at', [
+                now()->startOfWeek(),
+                now()->endOfWeek()
+            ]);
+          // Filter bulanan (ambil hanya data bulain ini dalam tahun ini)  
+        } elseif ($filter === 'monthly') {
+            $query->whereMonth('created_at', now()->month);
+        }
+
+        
+        $data = $query->limit(10)->get();
+        
+        return response()->json($data);
+    }
     
 
 }
