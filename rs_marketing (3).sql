@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2025 at 05:09 AM
+-- Generation Time: Jul 02, 2025 at 02:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.3.11
 
@@ -1299,9 +1299,11 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 CREATE TABLE `rs_approvals` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `rs_no` varchar(50) NOT NULL,
   `nik` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
+  `comment` varchar(255) DEFAULT NULL,
   `token` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1311,8 +1313,8 @@ CREATE TABLE `rs_approvals` (
 -- Dumping data for table `rs_approvals`
 --
 
-INSERT INTO `rs_approvals` (`id`, `nik`, `level`, `status`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'T0932', 1, '', '0', NULL, NULL);
+INSERT INTO `rs_approvals` (`id`, `rs_no`, `nik`, `level`, `status`, `comment`, `token`, `created_at`, `updated_at`) VALUES
+(1, '', 'T0932', 1, '', NULL, '0', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1394,14 +1396,15 @@ INSERT INTO `rs_items` (`id`, `rs_id`, `item_id`, `qty_issued`, `qty_req`, `batc
 
 CREATE TABLE `rs_masters` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `used_id` bigint(20) NOT NULL,
   `category` varchar(255) DEFAULT NULL,
   `customer_id` bigint(20) UNSIGNED NOT NULL,
   `rs_no` varchar(255) NOT NULL,
   `revision_id` bigint(20) UNSIGNED NOT NULL,
-  `rs_number` varchar(255) DEFAULT NULL,
   `date` date NOT NULL,
   `reason` varchar(255) DEFAULT NULL,
   `objectives` varchar(255) DEFAULT NULL,
+  `account` varchar(255) NOT NULL,
   `cost_center` varchar(255) DEFAULT NULL,
   `batch_code` varchar(255) DEFAULT NULL,
   `est_potential` varchar(255) DEFAULT NULL,
@@ -1416,63 +1419,63 @@ CREATE TABLE `rs_masters` (
 -- Dumping data for table `rs_masters`
 --
 
-INSERT INTO `rs_masters` (`id`, `category`, `customer_id`, `rs_no`, `revision_id`, `rs_number`, `date`, `reason`, `objectives`, `cost_center`, `batch_code`, `est_potential`, `initiator_nik`, `route_to`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Sample Product', 1, '25RS0001', 1, '', '2025-04-30', NULL, 'mengirimkan lorem ipsum', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:01:25', '2025-04-29 19:01:25'),
-(3, 'Sample Product', 1, '25RS0001', 1, '', '2025-04-30', NULL, 'mengirimkan lorem ipsum', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:02:25', '2025-04-29 19:02:25'),
-(4, 'Sample Product', 1, '25RS0001', 1, '', '2025-04-30', NULL, 'mengirimkan lorem ipsum', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:05:40', '2025-04-29 19:05:40'),
-(5, 'Sample Product', 1, '25RS0001', 1, '', '2025-04-30', NULL, 'mengirimkan lorem ipsum', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:05:58', '2025-04-29 19:05:58'),
-(6, 'Sample Product', 2, '25RS0002', 1, NULL, '2025-05-08', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, NULL, 'I0726', NULL, 'pending', '2025-05-07 21:47:37', '2025-05-07 21:47:37'),
-(7, 'Packaging', 2, '25RS0003', 1, NULL, '2025-05-08', 'kkk', NULL, NULL, 'oooo', NULL, 'AG1315', NULL, 'pending', '2025-05-07 22:51:05', '2025-05-07 22:51:05'),
-(8, 'Sample Product', 1, '25RS0004', 1, '22', '2025-05-08', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '11', 'AG1315', NULL, 'pending', '2025-05-08 03:02:39', '2025-05-08 03:02:39'),
-(9, 'Sample Product', 1, '25RS0005', 1, NULL, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:46:04', '2025-05-21 19:46:04'),
-(10, 'Sample Product', 1, '25RS0005', 1, NULL, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:49:30', '2025-05-21 19:49:30'),
-(11, 'Sample Product', 1, '25RS0005', 1, NULL, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:53:58', '2025-05-21 19:53:58'),
-(12, 'Sample Product', 1, '25RS0006', 1, NULL, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:54:44', '2025-05-21 19:54:44'),
-(13, 'Sample Product', 1, '25RS0006', 1, NULL, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:55:27', '2025-05-21 19:55:27'),
-(14, 'Sample Product', 1, '25RS0007', 1, NULL, '2025-05-31', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 19:49:12', '2025-05-27 19:49:12'),
-(15, 'Sample Product', 2, '25RS0008', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 19:57:52', '2025-05-27 19:57:52'),
-(16, 'Sample Product', 2, '25RS0009', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '252', NULL, '11', 'AG1315', NULL, 'pending', '2025-05-27 20:00:18', '2025-05-27 20:00:18'),
-(17, 'Sample Product', 2, '25RS0010', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 20:04:52', '2025-05-27 20:04:52'),
-(18, 'Sample Product', 2, '25RS0011', 1, NULL, '2025-05-28', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 20:07:08', '2025-05-27 20:07:08'),
-(19, 'Sample Product', 1, '25RS0012', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'F0629', NULL, 'pending', '2025-05-27 20:13:10', '2025-05-27 20:13:10'),
-(20, 'Sample Product', 1, '25RS0012', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'F0629', NULL, 'pending', '2025-05-27 20:13:32', '2025-05-27 20:13:32'),
-(21, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:22:03', '2025-05-27 20:22:03'),
-(22, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:24:00', '2025-05-27 20:24:00'),
-(23, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:24:37', '2025-05-27 20:24:37'),
-(24, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:25:06', '2025-05-27 20:25:06'),
-(25, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:27:10', '2025-05-27 20:27:10'),
-(26, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:28:27', '2025-05-27 20:28:27'),
-(27, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:28:50', '2025-05-27 20:28:50'),
-(28, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:58:24', '2025-05-27 20:58:24'),
-(29, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:10:16', '2025-05-27 21:10:16'),
-(30, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:11:59', '2025-05-27 21:11:59'),
-(31, 'Sample Product', 1, '25RS0013', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '252', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:12:55', '2025-05-27 21:12:55'),
-(32, 'Sample Product', 2, '25RS0015', 1, NULL, '2025-05-28', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:16:00', '2025-05-27 21:16:00'),
-(33, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:19:31', '2025-05-27 21:19:31'),
-(34, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:19:34', '2025-05-27 21:19:34'),
-(35, 'Sample Product', 1, '25RS0014', 1, NULL, '2025-05-29', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:21:24', '2025-05-27 21:21:24'),
-(36, 'Sample Product', 1, '25RS0016', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:22:54', '2025-05-27 21:22:54'),
-(37, 'Sample Product', 1, '25RS0016', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:24:19', '2025-05-27 21:24:19'),
-(38, 'Sample Product', 1, '25RS0016', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:26:08', '2025-05-27 21:26:08'),
-(39, 'Sample Product', 1, '25RS0016', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:27:09', '2025-05-27 21:27:09'),
-(40, 'Sample Product', 1, '25RS0016', 1, NULL, '2025-05-30', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:32:29', '2025-05-27 21:32:29'),
-(41, 'Sample Product', 2, '25RS0017', 1, NULL, '2025-06-28', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:45:43', '2025-06-01 21:45:43'),
-(42, 'Sample Product', 2, '25RS0017', 1, NULL, '2025-06-28', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:46:12', '2025-06-01 21:46:12'),
-(43, 'Sample Product', 2, '25RS0017', 1, NULL, '2025-06-28', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:46:18', '2025-06-01 21:46:18'),
-(44, 'Sample Product', 2, '25RS0018', 1, NULL, '2025-06-20', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:05:13', '2025-06-02 00:05:13'),
-(45, 'Sample Product', 2, '25RS0018', 1, NULL, '2025-06-20', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:05:53', '2025-06-02 00:05:53'),
-(46, 'Sample Product', 2, '25RS0019', 1, NULL, '2025-06-02', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:13:13', '2025-06-02 00:13:13'),
-(47, 'Sample Product', 1, '25RS0020', 1, NULL, '2025-06-02', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:15:51', '2025-06-02 00:15:51'),
-(48, 'Sample Product', 1, '25RS0020', 1, NULL, '2025-06-02', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:15:56', '2025-06-02 00:15:56'),
-(49, 'Sample Product', 1, '25RS0021', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:00:08', '2025-06-03 03:00:08'),
-(50, 'Sample Product', 1, '25RS0021', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:01:07', '2025-06-03 03:01:07'),
-(51, 'Sample Product', 1, '25RS0021', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:01:08', '2025-06-03 03:01:08'),
-(52, 'Sample Product', 1, '25RS0021', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:02:28', '2025-06-03 03:02:28'),
-(53, 'Sample Product', 1, '25RS0021', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:03:46', '2025-06-03 03:03:46'),
-(54, 'Sample Product', 1, '25RS0022', 1, NULL, '2025-06-03', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:04:32', '2025-06-03 03:04:32'),
-(55, 'Sample Product', 2, '25RS0023', 1, NULL, '2025-06-20', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:09:59', '2025-06-19 19:09:59'),
-(56, 'Sample Product', 2, '25RS0023', 1, NULL, '2025-06-20', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:20:04', '2025-06-19 19:20:04'),
-(57, 'Sample Product', 2, '25RS0023', 1, NULL, '2025-06-20', NULL, 'mengirimkan lorem ipsum', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:20:21', '2025-06-19 19:20:21');
+INSERT INTO `rs_masters` (`id`, `used_id`, `category`, `customer_id`, `rs_no`, `revision_id`, `date`, `reason`, `objectives`, `account`, `cost_center`, `batch_code`, `est_potential`, `initiator_nik`, `route_to`, `status`, `created_at`, `updated_at`) VALUES
+(2, 0, 'Sample Product', 1, '25RS0001', 1, '2025-04-30', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:01:25', '2025-04-29 19:01:25'),
+(3, 0, 'Sample Product', 1, '25RS0001', 1, '2025-04-30', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:02:25', '2025-04-29 19:02:25'),
+(4, 0, 'Sample Product', 1, '25RS0001', 1, '2025-04-30', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:05:40', '2025-04-29 19:05:40'),
+(5, 0, 'Sample Product', 1, '25RS0001', 1, '2025-04-30', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, NULL, 'A0150', NULL, 'pending', '2025-04-29 19:05:58', '2025-04-29 19:05:58'),
+(6, 0, 'Sample Product', 2, '25RS0002', 1, '2025-05-08', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, NULL, 'I0726', NULL, 'pending', '2025-05-07 21:47:37', '2025-05-07 21:47:37'),
+(7, 0, 'Packaging', 2, '25RS0003', 1, '2025-05-08', 'kkk', NULL, '', NULL, 'oooo', NULL, 'AG1315', NULL, 'pending', '2025-05-07 22:51:05', '2025-05-07 22:51:05'),
+(8, 0, 'Sample Product', 1, '25RS0004', 1, '2025-05-08', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '11', 'AG1315', NULL, 'pending', '2025-05-08 03:02:39', '2025-05-08 03:02:39'),
+(9, 0, 'Sample Product', 1, '25RS0005', 1, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:46:04', '2025-05-21 19:46:04'),
+(10, 0, 'Sample Product', 1, '25RS0005', 1, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:49:30', '2025-05-21 19:49:30'),
+(11, 0, 'Sample Product', 1, '25RS0005', 1, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:53:58', '2025-05-21 19:53:58'),
+(12, 0, 'Sample Product', 1, '25RS0006', 1, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:54:44', '2025-05-21 19:54:44'),
+(13, 0, 'Sample Product', 1, '25RS0006', 1, '2025-05-22', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-21 19:55:27', '2025-05-21 19:55:27'),
+(14, 0, 'Sample Product', 1, '25RS0007', 1, '2025-05-31', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 19:49:12', '2025-05-27 19:49:12'),
+(15, 0, 'Sample Product', 2, '25RS0008', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 19:57:52', '2025-05-27 19:57:52'),
+(16, 0, 'Sample Product', 2, '25RS0009', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '11', 'AG1315', NULL, 'pending', '2025-05-27 20:00:18', '2025-05-27 20:00:18'),
+(17, 0, 'Sample Product', 2, '25RS0010', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 20:04:52', '2025-05-27 20:04:52'),
+(18, 0, 'Sample Product', 2, '25RS0011', 1, '2025-05-28', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', NULL, 'pending', '2025-05-27 20:07:08', '2025-05-27 20:07:08'),
+(19, 0, 'Sample Product', 1, '25RS0012', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'F0629', NULL, 'pending', '2025-05-27 20:13:10', '2025-05-27 20:13:10'),
+(20, 0, 'Sample Product', 1, '25RS0012', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'F0629', NULL, 'pending', '2025-05-27 20:13:32', '2025-05-27 20:13:32'),
+(21, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:22:03', '2025-05-27 20:22:03'),
+(22, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:24:00', '2025-05-27 20:24:00'),
+(23, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:24:37', '2025-05-27 20:24:37'),
+(24, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:25:06', '2025-05-27 20:25:06'),
+(25, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:27:10', '2025-05-27 20:27:10'),
+(26, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:28:27', '2025-05-27 20:28:27'),
+(27, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:28:50', '2025-05-27 20:28:50'),
+(28, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 20:58:24', '2025-05-27 20:58:24'),
+(29, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:10:16', '2025-05-27 21:10:16'),
+(30, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:11:59', '2025-05-27 21:11:59'),
+(31, 0, 'Sample Product', 1, '25RS0013', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', '252', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:12:55', '2025-05-27 21:12:55'),
+(32, 0, 'Sample Product', 2, '25RS0015', 1, '2025-05-28', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:16:00', '2025-05-27 21:16:00'),
+(33, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:19:31', '2025-05-27 21:19:31'),
+(34, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:19:34', '2025-05-27 21:19:34'),
+(35, 0, 'Sample Product', 1, '25RS0014', 1, '2025-05-29', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:21:24', '2025-05-27 21:21:24'),
+(36, 0, 'Sample Product', 1, '25RS0016', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:22:54', '2025-05-27 21:22:54'),
+(37, 0, 'Sample Product', 1, '25RS0016', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:24:19', '2025-05-27 21:24:19'),
+(38, 0, 'Sample Product', 1, '25RS0016', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:26:08', '2025-05-27 21:26:08'),
+(39, 0, 'Sample Product', 1, '25RS0016', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:27:09', '2025-05-27 21:27:09'),
+(40, 0, 'Sample Product', 1, '25RS0016', 1, '2025-05-30', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-05-27 21:32:29', '2025-05-27 21:32:29'),
+(41, 0, 'Sample Product', 2, '25RS0017', 1, '2025-06-28', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:45:43', '2025-06-01 21:45:43'),
+(42, 0, 'Sample Product', 2, '25RS0017', 1, '2025-06-28', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:46:12', '2025-06-01 21:46:12'),
+(43, 0, 'Sample Product', 2, '25RS0017', 1, '2025-06-28', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-01 21:46:18', '2025-06-01 21:46:18'),
+(44, 0, 'Sample Product', 2, '25RS0018', 1, '2025-06-20', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:05:13', '2025-06-02 00:05:13'),
+(45, 0, 'Sample Product', 2, '25RS0018', 1, '2025-06-20', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:05:53', '2025-06-02 00:05:53'),
+(46, 0, 'Sample Product', 2, '25RS0019', 1, '2025-06-02', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:13:13', '2025-06-02 00:13:13'),
+(47, 0, 'Sample Product', 1, '25RS0020', 1, '2025-06-02', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:15:51', '2025-06-02 00:15:51'),
+(48, 0, 'Sample Product', 1, '25RS0020', 1, '2025-06-02', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-02 00:15:56', '2025-06-02 00:15:56'),
+(49, 0, 'Sample Product', 1, '25RS0021', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:00:08', '2025-06-03 03:00:08'),
+(50, 0, 'Sample Product', 1, '25RS0021', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:01:07', '2025-06-03 03:01:07'),
+(51, 0, 'Sample Product', 1, '25RS0021', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:01:08', '2025-06-03 03:01:08'),
+(52, 0, 'Sample Product', 1, '25RS0021', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:02:28', '2025-06-03 03:02:28'),
+(53, 0, 'Sample Product', 1, '25RS0021', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:03:46', '2025-06-03 03:03:46'),
+(54, 0, 'Sample Product', 1, '25RS0022', 1, '2025-06-03', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-03 03:04:32', '2025-06-03 03:04:32'),
+(55, 0, 'Sample Product', 2, '25RS0023', 1, '2025-06-20', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:09:59', '2025-06-19 19:09:59'),
+(56, 0, 'Sample Product', 2, '25RS0023', 1, '2025-06-20', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:20:04', '2025-06-19 19:20:04'),
+(57, 0, 'Sample Product', 2, '25RS0023', 1, '2025-06-20', NULL, 'mengirimkan lorem ipsum', '', 'p227', NULL, '22', 'AG1315', 'A0121', 'pending', '2025-06-19 19:20:21', '2025-06-19 19:20:21');
 
 -- --------------------------------------------------------
 
